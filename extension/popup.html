@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    width:220px;background:#080808;color:#aaa;
+    font-family:'Courier New',monospace;padding:16px;
+  }
+  h1{color:#00ff88;font-size:18px;letter-spacing:.2em;margin-bottom:2px;}
+  .sub{font-size:9px;color:#2a2a2a;letter-spacing:.2em;margin-bottom:14px;}
+  .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .label{font-size:10px;color:#444;}
+  .val{font-size:20px;color:#00ff88;font-weight:900;}
+  .status{display:flex;align-items:center;gap:8px;font-size:10px;color:#444;margin-bottom:12px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:#00ff88;animation:p 1.5s infinite;flex-shrink:0;}
+  @keyframes p{0%,100%{opacity:1}50%{opacity:.2}}
+  hr{border:none;border-top:1px solid #1a1a1a;margin:10px 0;}
+  .note{font-size:9px;color:#222;line-height:1.7;}
+  .hl{color:#00ccff;}
+</style>
+</head>
+<body>
+  <h1>YAdSlayer</h1>
+  <div class="sub">EMPYREAN LABS · v1.0</div>
+  <div class="status"><div class="dot"></div>Active on YouTube</div>
+  <div class="row">
+    <span class="label">ADS SLAIN</span>
+    <span class="val" id="count">—</span>
+  </div>
+  <hr>
+  <div class="note">
+    HUD top-right on YouTube.<br>
+    Seek-to-end + 16x speed blast.<br>
+    <span class="hl">Fully automatic.</span>
+  </div>
+  <script>
+    chrome.tabs.query({active:true,currentWindow:true},function(tabs){
+      if(!tabs[0])return;
+      chrome.scripting.executeScript({
+        target:{tabId:tabs[0].id},
+        func:()=>{const e=document.getElementById('yad-n');return e?e.textContent:'0';}
+      },r=>{if(r&&r[0])document.getElementById('count').textContent=r[0].result||'0';});
+    });
+  </script>
+</body>
+</html>
